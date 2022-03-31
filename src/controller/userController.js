@@ -122,7 +122,7 @@ const login = async (req, res) => {
 
         // const token = jwt.sign({ id: user._id }, "projectthreebook")
         const token = jwt.sign({
-            id: user._id.toString(),
+            id: user._id,
             group: "06",
             iat: Math.floor(Date.now() / 1000),
             exp: Math.floor(Date.now() / 1000) + 1 * 60 * 60
