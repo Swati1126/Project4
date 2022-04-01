@@ -42,8 +42,7 @@ const bookSchema = mongoose.Schema({
         default: false
     },
     releasedAt: {
-        type: String,
-        default: " ",
+        type: Date,
         required: true
     } 
 }, {timestamps: true});
