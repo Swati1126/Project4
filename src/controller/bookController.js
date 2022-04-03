@@ -1,6 +1,7 @@
 const moment = require("moment")
 const mongoose = require("mongoose")
 const jwt = require("jsonwebtoken")
+const aws = require("../aws/aws")
 const bookModel = require("../model/bookModel")
 const reviewModel = require("../model/reviewModel")
 const userModel = require("../model/userModel")
@@ -21,6 +22,21 @@ const isValidRequestBody = function (requestBody) {
 
 const isValidDate = function(releasedAt){
     return /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(releasedAt)
+}
+
+const coverLink = async (req, res) => {
+    try{
+        let files = req.files
+        if(files && files.length > 0){
+            let uploadedFileURL = await aws.uploadFile(files[0])
+            // return res.status(201).send({status: true, message: "file uploaded succesfully", data: uploadedFileURL})
+            return uploadedFileURL
+        }else{
+            return res.status(400).send({ msg: "No file found" })
+        }
+    }catch(error){
+        return res.status(500).send({ msg: error })
+    }
 }
 
 let createBook = async (req, res) => {
@@ -86,8 +102,13 @@ let createBook = async (req, res) => {
         if (IsbnUsed) {
             return res.status(400).send({ status: false, message: "isbn already used" })
         }
+
+        let createLink = await coverLink(req,res)
+
+        requestBody.bookCover = createLink
+
         const newBook = await bookModel.create(requestBody)
-        res.status(201).send({ status: true, message: "Success", data: newBook })
+        return res.status(201).send({ status: true, message: "Success", data: newBook })
     } catch (error) {
         res.status(500).send({ status: false, message: error.message })
     }
@@ -221,6 +242,7 @@ module.exports.getBooks = getBooks
 module.exports.createBook = createBook;
 module.exports.updateBook = updateBook;
 module.exports.deleteBook = deleteBook
+module.exports.coverLink = coverLink
 
 
 

@@ -7,6 +7,9 @@ const bookSchema = mongoose.Schema({
         require: "enter title of book",
         unique: true
     },
+    bookCover:{
+        type: String
+    },
     excerpt: {
         type: String,
         require: "enter excerpt for book"
