@@ -15,6 +15,10 @@
     "express": "^4.17.1",
     "mongoose": "^6.2.7",
     "mongoose-type-url": "^2.1.0",
+    "short-id": "^0.1.0-1",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.15"
   }
 }
