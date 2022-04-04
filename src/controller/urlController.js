@@ -15,11 +15,11 @@ const generateShortUrl = async (req, res) => {
 
         const { longUrl } = req.body
 
-        if (!isValid(longUrl)) return res.status(400).send({ error: "Please enter Url" })
+        if (!isValid(longUrl)) return res.status(400).send({status:false, message: "Please enter Url" })
 
         if (!validUrl.isUri(longUrl)) return res.status(400).send({ status: false, message: "Url is not valid" })
 
-        const presentUrl = await UrlModel.findOne({longUrl}).select({longUrl:1, shortUrl:1, urlCode:1})
+        const presentUrl = await urlModel.findOne({longUrl}).select({longUrl:1, shortUrl:1, urlCode:1})
 
         if(presentUrl) return res.status(200).send({ status: true, data: presentUrl })
 
@@ -56,7 +56,7 @@ const getUrl = async (req, res) => {
 
         const result = await urlModel.findOne({urlCode })
         if (!result) {
-            return res.status(404).send({ status: false, msg: "Url doesn't exist" });
+            return res.status(404).send({ status: false, message: "Url doesn't exist" });
         }
 
         res.status(301).redirect(result.longUrl)
