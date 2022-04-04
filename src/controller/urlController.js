@@ -2,7 +2,6 @@ const validUrl = require('valid-url')
 const shortid = require('short-id')
 
 const urlModel = require('../model/UrlModel')
-const UrlModel = require('../model/UrlModel')
 
 const isValid = (value) => {
     if (typeof value === 'undefined' || value === null) return false
