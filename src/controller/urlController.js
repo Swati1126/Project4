@@ -2,6 +2,7 @@ const validUrl = require('valid-url')
 const shortid = require('short-id')
 
 const urlModel = require('../model/UrlModel')
+const UrlModel = require('../model/UrlModel')
 
 const isValid = (value) => {
     if (typeof value === 'undefined' || value === null) return false
@@ -18,6 +19,10 @@ const generateShortUrl = async (req, res) => {
         if (!isValid(longUrl)) return res.status(400).send({ error: "Please enter Url" })
 
         if (!validUrl.isUri(longUrl)) return res.status(400).send({ status: false, message: "Url is not valid" })
+
+        const presentUrl = await UrlModel.findOne({longUrl}).select({longUrl:1, shortUrl:1, urlCode:1})
+
+        if(presentUrl) return res.status(200).send({ status: true, data: presentUrl })
 
         const baseUrl = 'http:localhost:3000'
 
