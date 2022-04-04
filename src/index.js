@@ -7,17 +7,16 @@ const route = require('./route/route');
 
 const app = express();
 
-const multer = require("multer")
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(multer().any())
 
 const mongoose = require('mongoose')
 
-mongoose.connect("mongodb+srv://rohan7599:MipvNOjb97usB2oZ@cluster0.lviwx.mongodb.net/group6Database?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => console.log('mongodb running on 27017'))
+mongoose.connect("mongodb+srv://Amit:THmzVZv3QBLW11Z1@cluster0.zkmhi.mongodb.net/group6Database", {
+    useNewUrlParser: true
+})
+    .then(() => console.log('MongoDb is connected'))
     .catch(err => console.log(err))
 
 app.use('/', route);

@@ -1,29 +1,20 @@
 {
-  "name": "project_three_",
+  "name": "src",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend cohort for Thorium(feb-May)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "script": "nodemon index.js"
+    "script": "nodemon src/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Rohan7050/project_three_.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Rohan7050/project_three_/issues"
-  },
-  "homepage": "https://github.com/Rohan7050/project_three_#readme",
   "dependencies": {
-    "aws-sdk": "^2.1106.0",
-    "express": "^4.17.3",
-    "jsonwebtoken": "^8.5.1",
-    "moment": "^2.29.1",
-    "mongoose": "^6.2.8",
-    "multer": "^1.4.4"
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^6.2.7",
+    "mongoose-type-url": "^2.1.0",
+    "nodemon": "^2.0.15"
   }
 }
