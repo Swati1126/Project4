@@ -93,16 +93,25 @@ const getUrl = async (req, res) => {
 
         if (!isValid(urlCode)) return res.status(400).send({ status: false, message: "Invalid Url" })
 
+        let cahcedUrlData = await GET_ASYNC(`${urlCode}`)  
+
+        if(cahcedUrlData){
+            let data = JSON.parse(cahcedUrlData)
+            return res.redirect(data.longUrl)
+        }
+
         const result = await urlModel.findOne({ urlCode })
         if (!result) {
             return res.status(404).send({ status: false, message: "Url doesn't exist" });
         }
 
-        res.redirect(result.longUrl)
+        await SET_ASYNC(`${urlCode}`, JSON.stringify(result))
+
+        return res.redirect(result.longUrl)
 
 
     } catch (error) {
-        res.status(500).send({ status: true, msg: error.message })
+        return res.status(500).send({ status: true, msg: error.message })
     }
 }
 
